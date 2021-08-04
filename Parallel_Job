@@ -1,7 +1,8 @@
 pipeline {
     agent none
-
-    stages ('Non-Parallel Stage')
+    stages {
+    
+    stage('Non-Parallel Stage') {
         agent {
                         label "master"
             }
@@ -10,7 +11,7 @@ pipeline {
             }
         }
         
-        stage ('Run Tests')
+        stage('Run Tests') {
             parallel {
                 stage ('Test on Linux') {
                     agent {
@@ -21,14 +22,15 @@ pipeline {
                     }
                     
                 }
-                stage ('Test on Master') {
+                stage('Test on Master') {
                     agent {
                         label "master"
                     }
                     steps {
                         echo "Task1 on Master"
                     }
-                }
-            }
-        }
+				}
+			}
+		}
     }
+}
